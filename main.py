@@ -8,7 +8,17 @@ from cryptography import fernet
 print("""What do you want to do?
       1.Generate new key.
       2.Encrypt your message.
-      3.Decrypt a message(Remember to have the same key as the sender of the message)
+      3.Decrypt a message (Remember to have the same key as the sender of the message)
       
       """)
 choice = int(input("Choose a number:"))
+if choice == 1:
+    import Key
+elif choice == 2:
+    import szyfrowanie
+elif choice == 3:
+    import odszyfrowanie
+elif choice == None:
+    print("Choice can't be empty")
+else:
+    print("Can't enter other numbers or letters")

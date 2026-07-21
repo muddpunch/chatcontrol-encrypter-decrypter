@@ -21,5 +21,5 @@ def main() -> None:
     except (InvalidToken, UnicodeEncodeError, UnicodeDecodeError):
         raise SystemExit("Invalid message or invalid key.")
 
-if __name__ == "__main__":
+if __name__ == "main":
     main()

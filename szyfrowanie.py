@@ -16,7 +16,5 @@ def main() -> None:
         raise SystemExit("Message cannot be empty.")
     encrypted = load_cipher().encrypt(message.encode("utf-8"))
     print(f"Encrypted message: {encrypted.decode('ascii')}")
-if __name__ == "__main__":
+if __name__ == "main":
     main()
-
-
