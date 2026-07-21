@@ -7,4 +7,5 @@
 **You can use it in 2 versions:** 
   - **Terminal**
   - **UI Version (will be updated maybe)**
+<img width="650" height="531" alt="image" src="https://github.com/user-attachments/assets/142b6fee-b450-4581-9d99-7e1b54d231dc" />
 
