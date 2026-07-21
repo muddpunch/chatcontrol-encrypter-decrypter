@@ -55,7 +55,7 @@ def main () -> None:
     def decrypt() -> None:
         encrypted = input_box.get("1.0", "end-1c").strip()
         if not encrypted:
-            messagebox.showwarning("Empty message", "Ener an encrypted message.")
+            messagebox.showwarning("Empty message", "Enter an encrypted message.")
             return
         cipher = load_cipher()
         if cipher is None:
