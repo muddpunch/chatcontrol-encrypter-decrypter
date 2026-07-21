@@ -3,9 +3,6 @@ import sys
 import os 
 import random
 import string
-<<<<<<< Updated upstream
-from cryptography import Fernet
-=======
 from cryptography import fernet
 
 print("""What do you want to do?
@@ -15,4 +12,3 @@ print("""What do you want to do?
       
       """)
 choice = int(input("Choose a number:"))
->>>>>>> Stashed changes

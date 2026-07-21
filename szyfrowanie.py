@@ -1,7 +1,6 @@
 from pathlib import Path
 from cryptography.fernet import Fernet
 
-<<<<<<< Updated upstream
 KEY_FILE = Path(__file__).with_name("key.txt")
 def load_cipher() -> Fernet:
     try:
@@ -19,7 +18,5 @@ def main() -> None:
     print(f"Encrypted message: {encrypted.decode('ascii')}")
 if __name__ == "__main__":
     main()
-=======
-cipher = Fernet(key.txt)
->>>>>>> Stashed changes
+
 
