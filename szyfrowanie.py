@@ -19,5 +19,5 @@ def main() -> None:
     # fernet encrypts utf-8 bytes and returns an ascii token
     encrypted = load_cipher().encrypt(message.encode("utf-8"))
     print(f"Encrypted message: {encrypted.decode('ascii')}")
-if __name__ == "main":
+if __name__ == "__main__":
     main()

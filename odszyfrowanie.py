@@ -23,11 +23,6 @@ def main() -> None:
         print(f"Decrypted message: {decrypted.decode('utf-8')}")
     except (InvalidToken, UnicodeEncodeError, UnicodeDecodeError):
         raise SystemExit("Invalid message or invalid key.")
-<<<<<<< Updated upstream
 
-if __name__ == "main":
-    main()
-=======
 if __name__ == "__main__":
     main()
->>>>>>> Stashed changes

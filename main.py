@@ -1,24 +1,39 @@
+import Key
+import odszyfrowanie
+import szyfrowanie
+import ui
 import time
-import sys 
-import os 
-import random
-import string
-from cryptography import fernet
+import os
 
-print("""What do you want to do?
-      1.Generate new key.
-      2.Encrypt your message.
-      3.Decrypt a message (Remember to have the same key as the sender of the message)
-      
-      """)
-choice = int(input("Choose a number:"))
-if choice == 1:
-    import Key
-elif choice == 2:
-    import szyfrowanie
-elif choice == 3:
-    import odszyfrowanie
-elif choice == None:
-    print("Choice can't be empty")
-else:
-    print("Can't enter other numbers or letters")
+ACTIONS = {
+    "1": Key.main,
+    "2": szyfrowanie.main,
+    "3": odszyfrowanie.main,
+    "4": ui.main
+}
+
+def main () -> None:
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        print("""What do you want to do?
+            1.Generate new key.
+            2.Encrypt your message.
+            3.Decrypt a message (Remember to have the same key as the sender of the message)
+            4. Open UI
+            0. exit
+            """)
+        choice = input("Choose a number: ").strip()
+        if choice != "0" and choice not in ACTIONS:
+            print("You must choose a number between 0 and 3")
+            time.sleep(5)
+            continue
+        if choice == "0":
+            break
+        action = ACTIONS.get(choice)
+        try:
+            action()
+        except SystemExit as error:
+            print(error)
+        input("\nPress Enter to return to the menu...")
+if __name__ == "__main__":
+    main()
