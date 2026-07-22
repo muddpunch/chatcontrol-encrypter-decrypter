@@ -36,8 +36,11 @@ def main () -> None:
             )
             if not confirmed:
                 return
-        KEY_FILE.write_bytes(Fernet.generate_key())
-        status.set("New key generated")
+        key = Fernet.generate_key()
+        KEY_FILE.write_bytes(key)
+        key_text = key.decode("ascii")
+        set_output(key_text)
+        status.set(f"New key generated! {key_text}")
     def set_output(value: str) -> None:
         output_box.delete("1.0", tk.END)
         output_box.insert("1.0", value)
@@ -77,15 +80,58 @@ def main () -> None:
         root.clipboard_clear()
         root.clipboard_append(value)
         status.set("Output copied")
+    key_var = tk.StringVar()
+    def import_key() -> None:
+        raw = key_var.get().strip()
+        if not raw:
+            try:
+                raw = root.clipboard_get().strip()
+                key_var.set(raw)
+            except tk.TclError:
+                messagebox.showwarning("Empty key", "Paste or enter a key.")
+                return
+        try:
+            key = raw.encode("ascii")
+            Fernet(key) #Key vali
+        except (UnicodeEncodeError, ValueError):
+            messagebox.showerror("Key error", "Invalid Fernet key.")
+            return
+        old_key = KEY_FILE.read_bytes().strip() if KEY_FILE.exists() else b""
+        if old_key and old_key != key and not messagebox.askyesno(
+            "Replace key?",
+            "Replace the current key with the custom key?",
+        ):
+            return
+        KEY_FILE.write_bytes(key)
+        status.set("Key saved to key.txt") 
     buttons = ttk.Frame(frame)
     buttons.grid(row=0, column=0, sticky="ew", pady=(0,12))
-    ttk.Button(buttons, text="Generate key", command=generate_key).pack(
-        side="left", padx=(0,8)
-    )
-    ttk.Button(buttons, text="Encrypt", command=encrypt).pack(
-        side="left", padx=(0,8)
-    )
-    ttk.Button(buttons, text="Decrypt", command=decrypt).pack(side="left")
+    buttons.columnconfigure(3, weight=1)
+    ttk.Button(
+        buttons,
+        text="Generate key",
+        command=generate_key
+    ).grid(row=0, column=0, padx=(0, 8))
+    ttk.Button(
+        buttons, 
+        text="Encrypt", 
+        command=encrypt,
+    ).grid(row=0, column=1, padx=(0, 8))
+    ttk.Button(
+        buttons, 
+        text="Decrypt", 
+        command=decrypt
+    ).grid(row=0, column=2, padx=(0, 8))
+    ttk.Entry(
+        buttons,
+        textvariable=key_var,
+        width=28,
+    ).grid(row=0, column=4, padx=(12, 8), sticky="e")
+    ttk.Button(
+        buttons,
+        text="Paste / save key",
+        command=import_key,
+    ).grid(row=0, column=5)
     ttk.Label(frame, text ="Input").grid (row=1, column=0, sticky="w")
     input_box = tk.Text(frame, height=8, wrap="word")
     input_box.grid(row=2, column=0, sticky="nsew", pady=(4, 12))
