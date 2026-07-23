@@ -315,7 +315,7 @@ misuse, damages, claims, or other consequences arising from its use.
 
 # License
 
-Released under the [MIT License](https://opensource.org/license/mit).
+Released under the [MIT License](https://github.com/muddpunch/chatcontrol-encrypter-decrypter/tree/main?tab=MIT-1-ov-file).
 
 ## UI Preview
 
