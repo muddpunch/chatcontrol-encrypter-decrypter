@@ -161,7 +161,10 @@
   The author does not endorse unlawful activity and, to the maximum extent permitted by applicable law, accepts no
   responsibility for illegal use, misuse, damages, claims, or other consequences arising from the use of this software.
 
-  ## Preview
+  ## UI Preview
 
-  <img width="650" height="531" alt="{CEF75804-E56A-44FE-BC27-B9FE2BBC7274}" src="https://github.com/user-attachments/
-  assets/fd592815-402b-4693-b76a-c4c018e14c84" />
+  # CHAT
+  <img width="702" height="544" alt="image" src="https://github.com/user-attachments/assets/48153917-0d6c-4fe7-a0d2-db5698bec39f" />
+  # ENCRYPTER
+  <img width="647" height="530" alt="{96C89EFF-DCC2-426F-9D2B-AAB07612E1C4}" src="https://github.com/user-attachments/assets/61ff9437-d381-4c97-b72f-c8f95234c364" />
+
