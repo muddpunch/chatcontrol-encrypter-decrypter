@@ -1,5 +1,5 @@
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from encryption import AAD, NONCE_SIZE
+from .encryption import AAD, NONCE_SIZE
 
 def decrypt_message(cipher: AESGCM, payload: bytes) -> str:
     if len(payload) < NONCE_SIZE + 16:

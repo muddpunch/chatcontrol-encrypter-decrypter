@@ -12,8 +12,8 @@ from cryptography.hazmat.primitives.asymmetric.x25519 import (
 )
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
-from decryption import decrypt_message
-from encryption import AAD, encrypt_message
+from .decryption import decrypt_message
+from .encryption import AAD, encrypt_message
 
 MAGIC = b"CCHAT001"
 MAX_FRAME_SIZE = 1024 * 1024
@@ -38,7 +38,7 @@ def _receive_frame(sock: socket.socket) -> bytes:
     return _recv_exact(sock, size)
 def _create_ciphers(
         sock: socket.socket,
-        is_hot: bool,
+        is_host: bool,
 ) -> tuple[AESGCM, AESGCM, str]:
     private_key = X25519PrivateKey.generate()
     public_key = private_key.public_key().public_bytes(
@@ -50,7 +50,7 @@ def _create_ciphers(
 
     if peer_hello[: len(MAGIC)] != MAGIC:
         raise ValueError("Unsupported version of protocol.")
-    peer_public_bytes = peer_hello[: len(MAGIC) :]
+    peer_public_bytes = peer_hello[len(MAGIC):]
     peer_public_key = X25519PublicKey.from_public_bytes(peer_public_bytes)
     shared_secret = private_key.exchange(peer_public_key)
 
@@ -106,7 +106,7 @@ class SecureConnection:
             if self._closed:
                 raise ConnectionError("Connection got closed.")
             _send_frame(self.sock, payload)
-    def recive(self) -> str:
+    def receive(self) -> str:
         if self._closed:
             raise ConnectionError("Connection got closed.")
         return decrypt_message(
@@ -165,7 +165,7 @@ def wait_for_peer(
             try:
                 sock, _ = listener.accept()
                 break
-            except sock.timeout:
+            except socket.timeout:
                 continue
         else:
             raise ConnectionAbortedError("Listening stopped.")
@@ -179,7 +179,7 @@ def wait_for_peer(
 def get_local_ip() -> str:
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try: 
-        socket.connect(("8.8.8.8", 80))
+        sock.connect(("8.8.8.8", 80))
         return sock.getsockname()[0]
     except OSError:
         return "127.0.0.1"
