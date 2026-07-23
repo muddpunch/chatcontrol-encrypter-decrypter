@@ -1,4 +1,4 @@
-# 🔐 Encrypted Chat
+# Anti Chat-Control Encrypter/Decrypter
 
   A lightweight peer-to-peer encrypted chat application. It does not require a central chat server: one user hosts the
   session and another connects through LAN, Hamachi, Radmin VPN, or a publicly reachable address.
