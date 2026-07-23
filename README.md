@@ -163,8 +163,8 @@
 
   ## UI Preview
 
-  **CHAT**
+  **CHAT**<br>
   <img width="702" height="544" alt="image" src="https://github.com/user-attachments/assets/48153917-0d6c-4fe7-a0d2-db5698bec39f" />
-  **ENCRYPTER**
+  **ENCRYPTER**<br>
   <img width="647" height="530" alt="{96C89EFF-DCC2-426F-9D2B-AAB07612E1C4}" src="https://github.com/user-attachments/assets/61ff9437-d381-4c97-b72f-c8f95234c364" />
 
