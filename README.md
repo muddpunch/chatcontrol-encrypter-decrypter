@@ -8,8 +8,9 @@
   - **Terminal**
   - **UI Version (will be updated maybe)(supports emojis)**
 ## PLANNED FEATURES:
-  - *Chat*
+  - *Chat (IN THE WORKS)*
   - *General fixes*
+  - *Mobile app for Android and iOS*
 <img width="650" height="531" alt="{CEF75804-E56A-44FE-BC27-B9FE2BBC7274}" src="https://github.com/user-attachments/assets/fd592815-402b-4693-b76a-c4c018e14c84" />
 
 
