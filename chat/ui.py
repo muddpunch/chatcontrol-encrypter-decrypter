@@ -19,9 +19,11 @@ class ChatApp:
         self.connection: SecureConnection | None = None
         self.stop_event = threading.Event()
         self.events: queue.Queue[tuple[str, object]] = queue.Queue()
-        self.host = tk.StringVar(value="127.0.0.1")
+        self.host = tk.StringVar(value="")
         self.port = tk.StringVar(value=str(DEFAULT_PORT))
-        self.status = tk.StringVar(value=f"Local IP: {get_local_ip()}")
+        self.status = tk.StringVar(
+            value=f"Host LAN: {get_local_ip()} | TCP/{DEFAULT_PORT}"
+        )
         self._build_ui()
         self.root.protocol("WM_DELETE_WINDOW", self._close)
         self.root.after(100, self._process_events)
@@ -49,11 +51,18 @@ class ChatApp:
         return port
     def _connect(self) -> None:
         try:
-            host, port = self.host.get().strip(), self._port()
+            host = self.host.get().strip()
+            port = self._port()
+            if not host:
+                raise ValueError("Enter the host IP address.")
+            if host in {"127.0.0.1", "localhost", "0.0.0.0"}:
+                raise ValueError(
+                    "Enter the host LAN/public/VPN IP, not a local address."
+                )
         except ValueError as error:
             messagebox.showerror("Invalid address", str(error))
             return
-        self.status.set("Connecting...")
+        self.status.set(f"Connecting to {host}:{port}...")
         self._start_connection(lambda: connect_to_peer(host, port))
     def _host(self) -> None:
         try:
@@ -61,7 +70,8 @@ class ChatApp:
         except ValueError as error:
             messagebox.showerror("Invalid port", str(error))
             return
-        self.status.set(f"Listening on {get_local_ip()}:{port}")
+        lan_ip = get_local_ip
+        self.status.set(f"Listening on LAN: {lan_ip()}:{port}")
         self._start_connection(lambda: wait_for_peer(port, self.stop_event))
     def _start_connection(self, factory) -> None:
         if self.connection is not None:
